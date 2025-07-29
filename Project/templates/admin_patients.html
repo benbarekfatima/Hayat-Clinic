@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Patients</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 5px 20px;
+      }
+
+      nav a:hover {
+        color: rgb(183, 242, 202);
+        text-decoration: none;
+      }
+
+      h2 {
+        color: #333;
+      }
+
+      table {
+        width: 90%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      a {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 10px 5px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+
+      a.view-profile {
+        background-color: #405c6e; /* Grey */
+        color: white;
+      }
+
+      a.view-profile:hover {
+        background-color: #24314e; /* Darker Grey on Hover */
+      }
+
+      a.delete-patient {
+        background-color: #e57373; /* Red */
+        color: white;
+      }
+
+      a.delete-patient:hover {
+        background-color: #c62828; /* Darker Red on Hover */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <span>Hayat Clinic</span>
+      <div>
+        <a href="{% url 'admin_home' %}">Home</a>
+        <a
+          href="{% url 'admin_patients' %}"
+          style="text-decoration: underline; font-weight: bold"
+          >Patients</a
+        >
+        <a href="{% url 'admin_doctors' %}">Doctors</a>
+        <a href="{% url 'admin_appointments' %}">appointments</a>
+        <a href="{% url 'admin_tasks' %}">Tasks</a>
+        <a class="logout" href="{% url 'logout' %}">Logout</a>
+      </div>
+    </nav>
+
+    <!-- Admin - Patients Content -->
+    <h2>Total Patients: {{ total_patients }}</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Username</th>
+          <th>Phone Number</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for patient in patients %}
+        <tr>
+          <td>{{ patient.user.get_full_name }}</td>
+          <td>{{ patient.user.email }}</td>
+          <td>{{ patient.user.username }}</td>
+          <td>{{ patient.phone_number }}</td>
+          <td>
+            <a
+              href="{% url 'patient_profile_admin' patient.user.id %}"
+              class="view-profile"
+              >View Profile</a
+            >
+            <a
+              href="{% url 'delete_patient' patient.pid %}"
+              class="delete-patient"
+              >Delete</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

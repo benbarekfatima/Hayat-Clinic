@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Doctor Profile</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 5px 20px;
+      }
+
+      nav a:hover {
+        color: rgb(183, 242, 202);
+        text-decoration: none;
+      }
+
+      .logout {
+        display: inline-block;
+        background-color: #0b0a0a;
+        padding: 10px 20px;
+      }
+
+      h2 {
+        color: #333;
+      }
+
+      .info-container {
+        width: 90%;
+        margin-top: 20px;
+      }
+
+      .info-box {
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      h3 {
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <span>Hayat Clinic</span>
+      <div>
+        <a href="{% url 'admin_home' %}">Home</a>
+        <a
+          href="{% url 'admin_doctors' %}"
+          style="text-decoration: underline; font-weight: bold"
+          >Doctors</a
+        >
+        <a href="{% url 'admin_patients' %}">Patients</a>
+        <a href="{% url 'admin_appointments' %}">Appointments</a>
+        <a href="{% url 'admin_tasks' %}">Tasks</a>
+        <a class="logout" href="{% url 'logout' %}">Logout</a>
+      </div>
+    </nav>
+
+    <!-- Admin - Doctor Profile Content -->
+    <h2>{{ doctor.user.get_full_name }} profile</h2>
+
+    <!-- Personal Information and Details -->
+    <div class="info-container">
+      <div class="info-box">
+        <h3>Personal Information</h3>
+        <p>Full Name: {{ doctor.user.get_full_name }}</p>
+        <p>Email: {{ doctor.user.email }}</p>
+        <p>Phone Number: {{ doctor.phone_number }}</p>
+        <p>Address: {{ doctor.address }}</p>
+        <p>Date of Recruitment: {{ doctor.date_recruitment }}</p>
+        <p>Speciality: {{ doctor.get_speciality_display }}</p>
+      </div>
+    </div>
+  </body>
+</html>

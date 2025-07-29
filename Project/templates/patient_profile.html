@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Profile</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 5px 20px;
+      }
+
+      nav a:hover {
+        color: rgb(183, 242, 202);
+        text-decoration: none;
+      }
+
+      .logout {
+        display: inline-block;
+        background-color: #0b0a0a;
+        padding: 10px 20px;
+      }
+      h2,
+      h3 {
+        color: #333;
+      }
+
+      .info-container {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        margin-top: 20px;
+      }
+
+      .info-box {
+        width: 48%;
+        margin: 10px;
+        padding: 15px;
+        background-color: #fff;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+
+      table {
+        width: 80%;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+        font-size: 14px;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      p {
+        margin: 8px 0;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <span>Hayat Clinic</span>
+      <div>
+        {% if doctor %}
+        <a href="{% url 'appointements_doc' %}">Appointments</a>
+        {% else %}
+        <a
+          href="{% url 'patient_profile' %}"
+          style="text-decoration: underline; font-weight: bold"
+          >Profile</a
+        >
+        <a href="{% url 'appointements_pat' %}">Appointments</a>
+        {% endif %}
+        <a class="logout" href="{% url 'logout' %}">Logout</a>
+      </div>
+    </nav>
+
+    <!-- Personal Information and Medical Record Boxes -->
+    <div class="info-container">
+      <div class="info-box">
+        <h3>Personal Information</h3>
+        <p>First Name: {{ user.first_name }}</p>
+        <p>Last Name: {{ user.last_name }}</p>
+        <p>Username: {{ user.username }}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>
+          Phone Number:
+          <span style="font-weight: bold">{{ patient.phone_number }}</span>
+        </p>
+        <p>Address: {{ patient.address }}</p>
+        <p>Date of Birth: {{ patient.date_of_birth }}</p>
+        <p>Emergency Contact: {{ patient.emergency_contact }}</p>
+        <p>Gender: {{ patient.get_gender_display }}</p>
+      </div>
+
+      <div class="info-box">
+        <h3>Medical Record</h3>
+        <p>Insurance Provider: {{ medical_record.insurance_provider }}</p>
+        <p>
+          Insurance Policy Number: {{ medical_record.insurance_policy_number }}
+        </p>
+        <p>Insurance Expiry Date: {{ medical_record.insurance_expiry_date }}</p>
+        <p>
+          Family Medical History: {{ medical_record.family_medical_history }}
+        </p>
+        <p>Past Illnesses: {{ medical_record.past_illnesses }}</p>
+        <p>Surgeries: {{ medical_record.surgeries }}</p>
+        <p>Allergies: {{ medical_record.allergies }}</p>
+      </div>
+    </div>
+
+    <!-- Display patient's diagnoses -->
+    <h3>Diagnoses</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Condition</th>
+          <th>Classification</th>
+          <th>Symptoms</th>
+          <th>Treatment</th>
+          <th>Medical Advice</th>
+          <th>Doctor</th>
+          <th>Speciality</th>
+          <th>Date</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for diagnosis in diagnoses %}
+        <tr>
+          <td>{{ diagnosis.condition }}</td>
+          <td>{{ diagnosis.classification }}</td>
+          <td>{{ diagnosis.symptoms }}</td>
+          <td>{{ diagnosis.treatement }}</td>
+          <td>{{ diagnosis.medica_advice }}</td>
+          <td>{{ diagnosis.appointment.doctor.user.get_full_name }}</td>
+          <td>{{ diagnosis.appointment.doctor.get_speciality_display }}</td>
+          <td>{{ diagnosis.appointment.full_time|date:"M. d, Y" }}</td>
+          <td>{{ diagnosis.appointment.time_slot }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

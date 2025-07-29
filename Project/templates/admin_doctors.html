@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Doctors</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 5px 20px;
+      }
+
+      nav a:hover {
+        color: rgb(183, 242, 202);
+        text-decoration: none;
+      }
+
+      h2 {
+        color: #333;
+      }
+
+      table {
+        width: 90%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      a {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 10px 5px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+
+      a.view-profile {
+        background-color: #405c6e;
+        color: white;
+      }
+
+      a.view-profile:hover {
+        background-color: #24314e;
+      }
+
+      a.delete-doctor {
+        background-color: #e57373;
+        color: white;
+      }
+
+      a.delete-doctor:hover {
+        background-color: #c62828;
+      }
+
+      a.add-doctor {
+        background-color: #468948;
+        color: white;
+        padding: 15px 40px;
+        margin-left: auto;
+        margin-right: 70px;
+      }
+
+      a.add-doctor:hover {
+        background-color: #0dc517;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <span>Hayat Clinic</span>
+      <div>
+        <a href="{% url 'admin_home' %}">Home</a>
+        <a href="{% url 'admin_patients' %}">Patients</a>
+        <a
+          href="{% url 'admin_doctors' %}"
+          style="text-decoration: underline; font-weight: bold"
+          >Doctors</a
+        >
+        <a href="{% url 'admin_appointments' %}">Appointments</a>
+        <a href="{% url 'admin_tasks' %}">Tasks</a>
+        <a class="logout" href="{% url 'logout' %}">Logout</a>
+      </div>
+    </nav>
+
+    <!-- Admin - Doctors Content -->
+    <h2>Total Doctors: {{ total_doctors }}</h2>
+    <a href="{% url 'sign_up_doctor' %}" class="add-doctor">Add doctor</a>
+    <table>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Speciality</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for doctor in doctors %}
+        <tr>
+          <td>{{ doctor.user.get_full_name }}</td>
+          <td>{{ doctor.get_speciality_display }}</td>
+          <td>{{ doctor.user.email }}</td>
+          <td>
+            <a
+              href="{% url 'doctor_profile_admin' doctor.user.id %}"
+              class="view-profile"
+              >View Profile</a
+            >
+            <a href="{% url 'delete_doctor' doctor.did %}" class="delete-doctor"
+              >Delete</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+<!-- reschedule_appointment.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diagnosis</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 5px 20px;
+      }
+
+      nav a:hover {
+        color: rgb(183, 242, 202);
+        text-decoration: none;
+      }
+
+      .logout {
+        display: inline-block;
+        background-color: #0b0a0a;
+        padding: 10px 20px;
+      }
+      h2 {
+        color: #333;
+        margin-left: 20px;
+      }
+
+      form {
+        margin: 20px;
+        width: 80%;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      input[type="datetime-local"],
+      select {
+        width: 50%;
+        padding: 8px;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+      }
+
+      option {
+        padding: 10px;
+        margin: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      button {
+        background-color: #468948;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #0dc517;
+      }
+
+      p {
+        color: rgb(7, 72, 47);
+        font-weight: bold;
+      }
+      .msg {
+        color: #cf5e01;
+        font-size: small;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <span>Hayat Clinic</span>
+      <div>
+        <!-- <a href="{% url 'patient_profile' %}">Profile</a> -->
+        <a
+          href="{% url 'appointements_doc' %}"
+          style="text-decoration: underline; font-weight: bold"
+          >Appointments</a
+        >
+        <a class="logout" href="{% url 'logout' %}">Logout</a>
+      </div>
+    </nav>
+    <h2>Diagnosis</h2>
+    <form method="post">
+      {% for message in messages %}
+      <p class="msg">{{ message }}</p>
+      {% endfor %} {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Save Diagnosis</button>
+    </form>
+  </body>
+</html>

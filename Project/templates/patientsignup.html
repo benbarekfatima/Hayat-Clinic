@@ -1,0 +1,111 @@
+<!-- patientsignup.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sign up patient</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 5px 20px;
+      }
+
+      nav a:hover {
+        color: rgb(183, 242, 202);
+        text-decoration: none;
+      }
+
+      form {
+        margin: 30px;
+        width: 90%;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      input {
+        width: 95%;
+        padding: 8px;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+      }
+
+      input[type="submit"] {
+        background-color: #468948;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 130px;
+        width: 30%;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #0dc517;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      select {
+        padding: 10px 50px;
+      }
+      .medic {
+        width: 50%;
+        background-color: #d8eed9;
+        padding: 10px;
+        margin-left: 10px;
+      }
+      h2 {
+        padding: 10px 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <span>Hayat Clinic</span>
+      <div>
+        <a href="{% url 'home' %}">Home</a>
+      </div>
+    </nav>
+    <h2>Patient Sign Up</h2>
+    <form method="post" action="{% url 'sign_up_patient' %}">
+      <div class="perso">
+        {% csrf_token %} {{ userForm.as_p }} {{ patientForm.as_p }}
+        <input type="submit" value="Sign Up" />
+      </div>
+      <div class="medic">{{medicalRecordForm.as_p }}</div>
+    </form>
+  </body>
+</html>

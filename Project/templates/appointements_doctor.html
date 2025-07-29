@@ -1,0 +1,168 @@
+<!-- appointements.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0px;
+      }
+
+      h2 {
+        color: #333;
+      }
+
+      h3 {
+        color: #555;
+      }
+      nav {
+        background-color: #333;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        top: 0;
+        left: 0;
+        margin-bottom: 5px;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 5px 20px;
+      }
+
+      nav a:hover {
+        color: rgb(183, 242, 202);
+        text-decoration: none;
+      }
+
+      .appointments {
+        margin: 20px;
+      }
+
+      .login {
+        display: inline-block;
+        background-color: #0b0a0a;
+        padding: 10px 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      td {
+        background-color: #f9f9f9;
+      }
+
+      a {
+        text-decoration: none;
+        color: #007bff;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 10px 5px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 4px;
+      }
+      .cancel {
+        background-color: #e57373; /* Red */
+        color: white;
+      }
+      .done {
+        background-color: #73e58f; /* Green */
+        color: white;
+      }
+      .resc {
+        background-color: #576e77; /* Gray */
+        color: white;
+      }
+      .record {
+        background-color: #73bfe5; /* Red */
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <span>Hayat Clinic</span>
+      <div>
+        <a href="#" style="text-decoration: underline; font-weight: bold"
+          >Appointements</a
+        >
+        <a href="{% url 'doctor_tasks' %}">Tasks</a>
+        <a href="{% url 'doctor_profile' %}">Profile</a>
+        <a class="login" href="{% url 'logout' %}">Logout</a>
+      </div>
+    </nav>
+    <div class="appointments">
+      <h2>Welcome, Dr. {{ user.first_name }} {{ user.last_name }}</h2>
+
+      <!-- Display patient's existing appointments in a table -->
+      <h3>Your Appointments</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Full time</th>
+            <th>State</th>
+            <th>Patient</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for appointment in appointments %}
+          <tr>
+            <td>{{ appointment.full_time }}</td>
+            <td>{{ appointment.state }}</td>
+            <td>{{ appointment.patient.user.get_full_name }}</td>
+            <td>
+              <a
+                class="btn done"
+                href="/project/fill_diagnosis/{{appointment.aid}}"
+                >Done</a
+              >
+              <a
+                class="btn cancel"
+                href="/project/delete_appointment_doc/{{appointment.aid}}"
+                >Cancel</a
+              >
+              <a
+                class="btn resc"
+                href="/project/reschedule_appointment_doc/{{appointment.aid}}"
+                >Reschedule</a
+              >
+              <a
+                class="btn record"
+                href="/project/patient_profile_doc/{{appointment.aid}}"
+                >Record</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
