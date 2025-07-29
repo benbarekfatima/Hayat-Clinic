@@ -53,5 +53,3 @@ python manage.py runserver
  - Connect to a real email provider
  - Deploy to Render or Railway
  - Add unit tests
-
-![Homepage](hayatClinic.png)
