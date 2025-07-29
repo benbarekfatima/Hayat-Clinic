@@ -4,7 +4,7 @@ A web application for managing medical appointments, patient records, and clinic
 
 ---
 
-## 🚀 Features
+# Features
 
 - Patient registration and login  
 - Book, edit, or cancel appointments  
@@ -15,7 +15,7 @@ A web application for managing medical appointments, patient records, and clinic
 
 ---
 
-## 🛠️ Technologies
+## Technologies
 
 - Python & Django  
 - SQLite (default DB)  
@@ -36,7 +36,7 @@ Hayat-Clinic/
 └── templates/              # HTML templates
 ```
 
-## 📦 Installation
+## Installation
 
 ```bash
 git clone https://github.com/benbarekfatima/Hayat-Clinic.git
@@ -53,3 +53,5 @@ python manage.py runserver
  - Connect to a real email provider
  - Deploy to Render or Railway
  - Add unit tests
+
+![Homepage](hayatClinic.png)
